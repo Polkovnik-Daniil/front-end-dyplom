@@ -1,8 +1,8 @@
-import React from 'react';
-import { useContext } from 'react';
-import { Navigate, Routes, Route } from 'react-router-dom';
-import { authRoutes, publicRoutes } from '../routes';
-import { Context } from '../index';
+import React from "react";
+import { useContext } from "react";
+import { Navigate, Routes, Route } from "react-router-dom";
+import { authRoutes, publicRoutes } from "../routes";
+import { Context } from "../index";
 
 
 
@@ -17,7 +17,7 @@ const AppRouter = () => {
             {publicRoutes.map(({ path, element }) =>
                 <Route key={path} path={path} element={element} />
             )}
-            <Route path='*' element={<Navigate replace to="/Login" />} />
+            <Route path="*" element={<Navigate replace to="/Login" />} />
         </Routes>
     );
 };
