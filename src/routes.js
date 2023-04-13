@@ -3,10 +3,11 @@ import Books from "./pages/Books";
 import Employees from "./pages/Employees";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
 import Readers from "./pages/Readers";
 import Registration from "./pages/Registration";
 
-import {  ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, REGISTRATION_ROUTE } from "./utils/consts";
+import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, REGISTRATION_ROUTE, NOTFOUND_ROUTE } from "./utils/consts";
 
 
 export const authRoutes = [
@@ -33,6 +34,10 @@ export const authRoutes = [
     {
         path: READERS_ROUTE,
         element: <Readers />
+    },
+    {
+        path: NOTFOUND_ROUTE,
+        element: <NotFound />
     }
 ]
 
@@ -40,5 +45,5 @@ export const publicRoutes = [
     {
         path: LOGIN_ROUTE,
         element: <Login />
-    }    
+    }
 ]
