@@ -1,40 +1,44 @@
 import { makeAutoObservable } from "mobx";
-import React, { useEffect, useMemo } from 'react';
-import { fetchBooks } from "../http/bookAPI";
 
 
 export default class BookStore {
     constructor() {
         this._dataServ = [];
+        this._countPage = 0;
+        this._Id = "";
         this._title = "";
         this._realise = "";
-        this._quantity = null;
-        this._columns = [
-            {
-                accessorKey: 'id',
-                header: 'Id',
-            },
-            {
-                accessorKey: 'title',
-                header: 'Title',
-            },
-            {
-                accessorKey: 'realise',
-                header: 'Realise',
-            },
-            {
-                accessorKey: 'quantity',
-                header: 'Quantity',
-            }
-        ];
+        this._quantity = "";
+        this._oper = '';
         makeAutoObservable(this);
     }
     setColumns(value) {
         this._columns = value;
     }
 
-    async setData(pageIndex) {
-        this._dataServ = await fetchBooks(pageIndex === null || pageIndex <= 0 ? 0 : pageIndex);
+    setPageSize(value) {
+        this._countPage = value;
+    }
+
+    async setData(value) {
+        console.log(value);
+        this._dataServ = value;
+        //this._dataServ.push.apply(value);
+        console.log(this._dataServ[0].title);
+    }
+
+    setOper(value) {
+        this._oper = value;
+    }
+
+    setClean() {
+        this._Id = "";
+        this._title = "";
+        this._realise = "";
+        this._quantity = "";
+    }
+    setId(value) {
+        this._Id = value;
     }
 
     setTitle(value) {
@@ -48,12 +52,29 @@ export default class BookStore {
     setQuantity(data) {
         this._quantity = data;
     }
-
+    get Oper() {
+        return this._oper;
+    }
     get Data() {
         return this._dataServ;
     }
 
-    get Columns() {
-        return this._columns;
+    get Id() {
+        return this._Id;
+    }
+
+    get Title() {
+        return this._title;
+    }
+
+    get Realise() {
+        return this._realise;
+    }
+
+    get Quantity() {
+        return this._quantity;
+    }
+    get PageSize() {
+        return this._countPage;
     }
 }

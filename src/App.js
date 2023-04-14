@@ -10,13 +10,12 @@ import { observer } from "mobx-react-lite";
 
 
 const App = observer(() => {
-    const { user, books } = useContext(Context);
+    const { user } = useContext(Context);
     useEffect(() => {
         check().then(data => {
             user.setParams();
         })
     }, [])
-    console.log(books);
     return (
         <BrowserRouter>
             <NavBar />

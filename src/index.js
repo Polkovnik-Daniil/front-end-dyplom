@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createContext } from "react";
 import UserStore from "./store/UserStore";
-import jwt_decode from "jwt-decode";
 import BookStore from "./store/BookStore";
 
 
@@ -17,7 +16,7 @@ root.render(
     <React.StrictMode>
         <Context.Provider value={{
             user: new UserStore(),
-            books: new BookStore()
+            books: new BookStore(),
         }}>
             <App />
         </Context.Provider>

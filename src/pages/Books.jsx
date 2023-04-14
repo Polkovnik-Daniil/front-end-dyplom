@@ -1,46 +1,73 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import "./Books.css";
 import { useContext } from "react"
-import { fetchBooks } from "../http/bookAPI";
 import MaterialReactTable from 'material-react-table';
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
+import { fetchBooks, fetchGetCountPage } from "../http/bookAPI";
+import CreateBook from "../components/modals/CreateBook";
 
 
  
 const Books = observer(() => {
-    const [pagination, setPagination] = useState(0);
     const { books } = useContext(Context);
-    books.setColumns(useMemo(
-        () => [
-            {
-                accessorKey: 'id',
-                header: 'Id',
-            },
-            {
-                accessorKey: 'title',
-                header: 'Title',
-            },
-            {
-                accessorKey: 'realise',
-                header: 'Realise',
-            },
-            {
-                accessorKey: 'quantity',
-                header: 'Quantity',
-            }
-        ]))
+
+    const [pagination, setPagination] = useState(0);
+    const [bookVisible, setBookVisible] = useState(false);
+
+    const columns = [
+        {
+            accessorKey: 'id',
+            header: 'Id',
+        },
+        {
+            accessorKey: 'title',
+            header: 'Title',
+        },
+        {
+            accessorKey: 'realise',
+            header: 'Realise',
+        },
+        {
+            accessorKey: 'quantity',
+            header: 'Quantity',
+        }
+    ];
+
     const GetValue = async (pageIndex) => {
-        books.setData(pageIndex);
+        //books.setPageSize(await fetchGetCountPage());
+        books.setData(await fetchBooks(pageIndex === null || pageIndex <= 0 ? 0 : pageIndex));
     }
+
     useEffect(() => {
         GetValue(pagination);
     }, []);
-    if (books.Data !== null) {
-        var a = books.Data;
-        return <MaterialReactTable columns={books.columns} data={a} />;
+
+    var values = books.Data;
+    if (values !== null) {
+        return (
+            <div className="d-flex flex-column">
+                <MaterialReactTable columns={columns} data={values}
+                    muiTableBodyCellProps={({ cell }) => ({
+                        onClick: (event) => {
+                            console.info(cell.row._valuesCache.title);
+                            books.setId(cell.row._valuesCache.id);
+                            books.setTitle(cell.row._valuesCache.title);
+                            books.setRealise(cell.row._valuesCache.realise.split('T')[0]);
+                            books.setQuantity(cell.row._valuesCache.quantity);
+                            setBookVisible(true);
+                        },
+                    })}
+                />
+                <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} id={books.Id} title={books.Title} realise={books.Realise} quantity={books.Quantity} />
+                <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
+                    setBookVisible(true);
+                    books.setClean();
+                }}>Add new book</button>
+            </div>
+        );
     }
     return <div>Loading...</div>
 });

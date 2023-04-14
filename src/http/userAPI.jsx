@@ -8,8 +8,9 @@ export const login = async (email, password) => {
 }   
 
 export const check = async () => {
-    const { data } = await $authHost.get("/Token/Refresh");
+    var refreshToken = localStorage.getItem("refreshToken");
+    const { data } = await $authHost.post("/Token/Refresh", { refreshToken });
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("refreshToken", data.refreshToken);
     return data;
-}
+}   
