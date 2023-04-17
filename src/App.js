@@ -6,6 +6,7 @@ import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
 import { check } from "./http/userAPI";
 import { Context } from "./index";
+import { AxiosError } from 'axios';
 import { observer } from "mobx-react-lite";
 
 
@@ -13,7 +14,14 @@ const App = observer(() => {
     const { user } = useContext(Context);
     useEffect(() => {
         check().then(data => {
-            user.setParams();
+            user.setUser();
+        }).catch((reason: AxiosError) => {
+            if (reason.response.status >= 400) {
+
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+
+            }
         })
     }, [])
     return (

@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { Context } from "../index";
 import { useNavigate } from "react-router-dom"
 import { observer } from "mobx-react-lite";
-import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, REGISTRATION_ROUTE, GENRE_ROUTE } from "../utils/consts";
 
 const NavBar = observer(() => {
     //TODO: 123
@@ -27,17 +27,22 @@ const NavBar = observer(() => {
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="" onClick={() => { navigate(BOOKS_ROUTE); }}>
+                            <a class="nav-link" onClick={() => { navigate(BOOKS_ROUTE); }}>
                                 Books
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="" onClick={() => { navigate(READERS_ROUTE); }}>
+                            <a class="nav-link" onClick={() => { navigate(READERS_ROUTE); }}>
                                 Readers
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="" onClick={() => { navigate(ABOUTUS_ROUTE); }}>
+                            <a class="nav-link" onClick={() => { navigate(GENRE_ROUTE); }}>
+                                Genre
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onClick={() => { navigate(ABOUTUS_ROUTE); }}>
                                 About us
                             </a>
                         </li>

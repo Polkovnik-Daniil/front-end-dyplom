@@ -9,11 +9,9 @@ export default class BookStore {
         this._title = "";
         this._realise = "";
         this._quantity = "";
+        this._genres = [];
         this._oper = '';
         makeAutoObservable(this);
-    }
-    setColumns(value) {
-        this._columns = value;
     }
 
     setPageSize(value) {
@@ -23,7 +21,6 @@ export default class BookStore {
     async setData(value) {
         console.log(value);
         this._dataServ = value;
-        //this._dataServ.push.apply(value);
         console.log(this._dataServ[0].title);
     }
 

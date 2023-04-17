@@ -10,7 +10,7 @@ import { observer } from "mobx-react-lite";
 
 const AppRouter = observer(() => {
     const { user } = useContext(Context); 
-    user.setParams();
+    user.setUser(true);
     console.log(user);
     return (
         <Routes>
@@ -20,8 +20,10 @@ const AppRouter = observer(() => {
             {publicRoutes.map(({ path, element }) =>
                 <Route key={path} path={path} element={element} />
             )}
-            <Route path="/" element={<Navigate replace to="/Login" />} /> 
-            <Route path="*" element={<Navigate replace to="/NotFound" />} /> 
+            {/*was deleted row*/ }
+            {user.isAuth ? <Route path="*" element={<Navigate replace to="/NotFound" />} /> : null}
+            {!user.isAuth ? <Route path="*" element={<Navigate replace to="/Login" />} /> : null}
+
         </Routes>
     );
 });

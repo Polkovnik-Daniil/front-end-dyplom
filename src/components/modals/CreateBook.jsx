@@ -1,16 +1,25 @@
 import React, { useContext, useState } from 'react';
 import Modal from "react-bootstrap/Modal";
-import { Button, Form } from "react-bootstrap";
-import { createBook, updateBook, deleteBook } from "../../http/bookAPI";
+import { Button, Form, Row, Col } from "react-bootstrap";
+import { createBook, updateBook, deleteBook, fetchBooks } from "../../http/bookAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index";
 
 
 const CreateBook = observer(({ show, onHide }) => {
     const { books } = useContext(Context);
+    const [genres, setGenres] = useState([]);
+    const addGenre = () => {
+        setGenres(...genres, { genre: '', number: Date.now() })
+    }
+    const removeGenres = (number) => {
+        setGenres(genres.filter(i => i.number !== number))
+    }
+    const changeGenres = (key, value, number) => {
+        setGenres(genres.map(i => i.number === number ? { ...i, [key]: value } : i))
+    }
     var status = books.Id === '';
-
-    const crudBook = () => {
+    const crudBook = async () => {
         var oper = books.Oper;
         switch (oper) 
         {
@@ -25,6 +34,7 @@ const CreateBook = observer(({ show, onHide }) => {
                 break;
         }
         onHide();
+        setTimeout(window.location.reload(true), 1500);
     }
     return (
         <Modal
@@ -64,6 +74,26 @@ const CreateBook = observer(({ show, onHide }) => {
                         value={books.Realise}
                         onChange={e => books.setRealise(e.target.value)}
                     />
+                    <Button variant="outline-success mt-2 align-self-end" onClick={addGenre}>Add genre</Button>
+                    {genres.map(i =>
+                        <Row className="mt-4" key={i.number}>
+                            <Col md={4}>
+                                <Form.Control
+                                    value={i.genres}
+                                    onChange={(e) => changeGenres('genres', e.target.value, i.number)}
+                                    placeholder="Enter title genre"
+                                />
+                            </Col>
+                            <Col md={4}>
+                                <Button
+                                    onClick={() => removeGenres(i.number)}
+                                    variant={"outline-danger"}
+                                >
+                                    Delete
+                                </Button>
+                            </Col>
+                        </Row>
+                    )}
                 </Form>
             </Modal.Body>
             <Modal.Footer>

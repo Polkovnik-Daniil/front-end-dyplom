@@ -61,7 +61,7 @@ const Books = observer(() => {
                         },
                     })}
                 />
-                <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} id={books.Id} title={books.Title} realise={books.Realise} quantity={books.Quantity} />
+                <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} />
                 <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
                     setBookVisible(true);
                     books.setClean();

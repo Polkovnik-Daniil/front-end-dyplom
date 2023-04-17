@@ -6,6 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 import { createContext } from "react";
 import UserStore from "./store/UserStore";
 import BookStore from "./store/BookStore";
+import GenreStore from "./store/GenreStore";
+import ReaderStore from "./store/GenreStore";
+
+
 
 
 export const Context = createContext(null);
@@ -17,6 +21,8 @@ root.render(
         <Context.Provider value={{
             user: new UserStore(),
             books: new BookStore(),
+            genres: new GenreStore(),
+            readers: new ReaderStore(),
         }}>
             <App />
         </Context.Provider>
