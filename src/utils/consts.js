@@ -5,6 +5,6 @@ export const READERS_ROUTE = "/Readers";
 export const LOGIN_ROUTE = "/Login";
 export const UNAUTH_ROUTE = "*";
 export const NOTFOUND_ROUTE = "/NotFound";
-export const REGISTRATION_ROUTE = "/Reg";
 export const ABOUTUS_ROUTE = "/About";
 export const GENRE_ROUTE = "/Genre";
+export const AUTHOR_ROUTE= "/Author";

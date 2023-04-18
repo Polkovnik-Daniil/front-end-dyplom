@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { Context } from "../index";
 import { useNavigate } from "react-router-dom"
 import { observer } from "mobx-react-lite";
-import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, REGISTRATION_ROUTE, GENRE_ROUTE } from "../utils/consts";
+import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, GENRE_ROUTE, AUTHOR_ROUTE } from "../utils/consts";
 
 const NavBar = observer(() => {
     //TODO: 123
@@ -35,15 +35,15 @@ const NavBar = observer(() => {
                             <a class="nav-link" onClick={() => { navigate(READERS_ROUTE); }}>
                                 Readers
                             </a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link" onClick={() => { navigate(AUTHOR_ROUTE); }}>
+                                Author
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" onClick={() => { navigate(GENRE_ROUTE); }}>
                                 Genre
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" onClick={() => { navigate(ABOUTUS_ROUTE); }}>
-                                About us
                             </a>
                         </li>
                         {
@@ -54,14 +54,14 @@ const NavBar = observer(() => {
                                             Employees
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="" onClick={() => { navigate(REGISTRATION_ROUTE); }}>
-                                            Registration
-                                        </a>
-                                    </li>
                                 </>
                                 : null
                         }
+                        <li class="nav-item">
+                            <a class="nav-link" onClick={() => { navigate(ABOUTUS_ROUTE); }}>
+                                About us
+                            </a>
+                        </li>                        
                         <li class="nav-item">
                             <a class="nav-link" onClick={OnExit}>
                                 Exit

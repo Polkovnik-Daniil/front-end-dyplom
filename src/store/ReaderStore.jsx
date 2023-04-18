@@ -1,22 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-
-export default class ReaderStore {
-    constructor() {
-        this._dataServ = [];
-        this._countPage = 0;
-
-        this._Id = "";
-        this._name = "";
-        this._surname = "";
-        this._patronymic = "";
-        this._placeOfResidence = "";
-        this._phoneNumber = "";
-
-        this._oper = '';
-        makeAutoObservable(this);
-    }
-
+ export default class ReaderStore {
     setId(value) {
         this._Id = value;
     }
@@ -73,7 +57,7 @@ export default class ReaderStore {
     get Id() {
         return this._Id;
     }
-
+      
     get Name() {
         return this._name;
     }
@@ -93,5 +77,16 @@ export default class ReaderStore {
     get PhoneNumber() {
         return this._phoneNumber;
     }
-
+    constructor() {
+        this._dataServ = [];
+        this._countPage = 0;
+        this._Id = "";
+        this._name = "";
+        this._surname = "";
+        this._patronymic = "";
+        this._placeOfResidence = "";
+        this._phoneNumber = "";
+        this._oper = '';
+        makeAutoObservable(this);
+    }
 }

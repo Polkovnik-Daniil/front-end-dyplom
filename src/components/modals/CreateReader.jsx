@@ -9,15 +9,14 @@ import { Context } from "../../index";
 const CreateReader = observer(({ show, onHide }) => {
     const { readers } = useContext(Context);
     var status = readers.Id === '';
-    readers.setSurname('a');
     const crudBook = async () => {
         var oper = readers.Oper;
-        switch (oper) {
+         switch (oper) {
             case 'u':
-                updateReader(Number(readers.Id), readers.Name, readers.Surname, readers.Patronymic, readers.PhoneNumber);
+                 updateReader(Number(readers.Id), readers.Name, readers.Surname, readers.Patronymic, readers.PlaceOfResidence, readers.PhoneNumber);
                 break;
-            case 'c':
-                createReader(readers.Name, readers.Surname, readers.Patronymic, readers.PhoneNumber);
+             case 'c':
+                 createReader(readers.Name, readers.Surname, readers.Patronymic, readers.PlaceOfResidence, readers.PhoneNumber);
                 break;
             case 'd':
                 deleteReader(Number(readers.Id));
@@ -57,6 +56,24 @@ const CreateReader = observer(({ show, onHide }) => {
                         className="mt-2"
                         onChange={e => readers.setSurname(e.target.value)}
                         placeholder={"Enter surname"}
+                    />
+                    <Form.Control
+                        value={readers.Patronymic}
+                        className="mt-2"
+                        onChange={e => readers.setPatronymic(e.target.value)}
+                        placeholder={"Enter patronymic"}
+                    />
+                    <Form.Control
+                        value={readers.PlaceOfResidence}
+                        className="mt-2"
+                        onChange={e => readers.setPlaceOfResidence(e.target.value)}
+                        placeholder={"Enter place of residence"}
+                    />
+                    <Form.Control
+                        value={readers.PhoneNumber}
+                        className="mt-2"
+                        onChange={e => readers.setPhoneNumber(e.target.value)}
+                        placeholder={"Enter phone number"}
                     />
                 </Form>
             </Modal.Body>

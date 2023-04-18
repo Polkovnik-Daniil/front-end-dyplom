@@ -30,10 +30,11 @@ const CreateBook = observer(({ show, onHide }) => {
                 createBook(books.Title, books.Realise, Number(books.Quantity));
                 break;
             case 'd':
-                deleteBook(books.Id);
+                deleteBook(Number(books.Id));
                 break;
         }
         onHide();
+        books.setData(await fetchBooks(0));
         setTimeout(window.location.reload(true), 1500);
     }
     return (

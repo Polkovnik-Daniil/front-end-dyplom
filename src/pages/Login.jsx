@@ -25,7 +25,12 @@ const Login = observer(() => {
             alert("Uncorrected values!");
             return;
         }
-        await login(email, password);
+        await login(email, password).catch((error) => {
+            if (error.response.status == 403) {
+                alert("Your account is blocked!");
+            }
+        }
+        );
         user.setUser(true);
         navigate(HOME_ROUTE);
         return;

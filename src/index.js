@@ -7,7 +7,10 @@ import { createContext } from "react";
 import UserStore from "./store/UserStore";
 import BookStore from "./store/BookStore";
 import GenreStore from "./store/GenreStore";
-import ReaderStore from "./store/GenreStore";
+import ReaderStore from "./store/ReaderStore";
+import AuthorStore from "./store/AuthorStore";
+import EmployeesStore from "./store/EmployeesStore";
+
 
 
 
@@ -22,7 +25,9 @@ root.render(
             user: new UserStore(),
             books: new BookStore(),
             genres: new GenreStore(),
+            author: new AuthorStore(),
             readers: new ReaderStore(),
+            employees: new EmployeesStore()
         }}>
             <App />
         </Context.Provider>
