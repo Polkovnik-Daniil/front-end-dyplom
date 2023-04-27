@@ -8,7 +8,7 @@ import { Context } from "../../index";
 
 const CreateBook = observer(({ show, onHide }) => {
     const { books } = useContext(Context);
-    const [genres, setGenres] = useState([]);
+    const [ genres, setGenres ] = useState([]);
     const addGenre = () => {
         setGenres(...genres, { genre: '', number: Date.now() })
     }
@@ -45,33 +45,34 @@ const CreateBook = observer(({ show, onHide }) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Add new book
+                    {status ? "Add new book" : "Book"}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
+                    <Form.Label className="mx-1 mt-2">Id</Form.Label>
                     <Form.Control
                         value={books.Id}
                         onChange={e => books.setId(e.target.value)}
                         placeholder={"Id"}
                         disabled
                     />
+                    <Form.Label className="mx-1 mt-2">Title</Form.Label>
                     <Form.Control
                         value={books.Title}
-                        className="mt-2"
                         onChange={e => books.setTitle(e.target.value)}
                         placeholder={"Title"}
                     />
+                    <Form.Label className="mx-1 mt-2">Quantity</Form.Label>
                     <Form.Control
                         type="number"
-                        className="mt-2"
                         value={books.Quantity}
                         onChange={e => books.setQuantity(e.target.value)}
                         placeholder={"Quantity"}
                     />
+                    <Form.Label className="mx-1 mt-2">Realise</Form.Label>
                     <Form.Control
                         type="date"
-                        className="mt-2"
                         value={books.Realise}
                         onChange={e => books.setRealise(e.target.value)}
                     />

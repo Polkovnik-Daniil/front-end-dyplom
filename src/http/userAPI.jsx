@@ -12,6 +12,5 @@ export const check = async () => {
     const { data } = await $authHost.post("/Token/Refresh", { refreshToken });
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("refreshToken", data.refreshToken);
-    console.log(data.refreshToken);
     return data;
 }   

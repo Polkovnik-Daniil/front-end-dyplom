@@ -53,7 +53,9 @@ import { makeAutoObservable } from "mobx";
     get Data() {
         return this._dataServ;
     }
-
+     get CountPage() {
+         return this._countPage;
+     }
     get Id() {
         return this._Id;
     }

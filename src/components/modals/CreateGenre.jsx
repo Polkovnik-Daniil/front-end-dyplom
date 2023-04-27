@@ -35,20 +35,21 @@ const CreateGenre = observer(({ show, onHide }) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Add new genre
+                    {status ? "Add new genre" : "Genre"}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
+                    <Form.Label className="mx-1 mt-2">Id</Form.Label>
                     <Form.Control
                         value={genres.Id}
                         onChange={e => genres.setId(e.target.value)}
                         placeholder={"Id"}
                         disabled
                     />
+                    <Form.Label className="mx-1 mt-2">Name</Form.Label>
                     <Form.Control
                         value={genres.Name}
-                        className="mt-2"
                         onChange={e => genres.setName(e.target.value)}
                         placeholder={"Name"}
                     />

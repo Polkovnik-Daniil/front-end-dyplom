@@ -34,44 +34,45 @@ const CreateReader = observer(({ show, onHide }) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Add new reader
+                    {status ? "Add new reader" : "Reader"}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
+                    <Form.Label className="mx-1 mt-2">Id</Form.Label>
                     <Form.Control
                         value={readers.Id}
                         onChange={e => readers.setId(e.target.value)}
                         placeholder={"Id"}
                         disabled
                     />
+                    <Form.Label className="mx-1 mt-2">Name</Form.Label>
                     <Form.Control
                         value={readers.Name}
-                        className="mt-2"
                         onChange={e => readers.setName(e.target.value)}
                         placeholder={"Enter name"}
                     />
+                    <Form.Label className="mx-1 mt-2">Surname</Form.Label>
                     <Form.Control
                         value={readers.Surname}
-                        className="mt-2"
                         onChange={e => readers.setSurname(e.target.value)}
                         placeholder={"Enter surname"}
                     />
+                    <Form.Label className="mx-1 mt-2">Patronymic</Form.Label>
                     <Form.Control
                         value={readers.Patronymic}
-                        className="mt-2"
                         onChange={e => readers.setPatronymic(e.target.value)}
-                        placeholder={"Enter patronymic"}
+                        placeholder={"Enter patronymic"} 
                     />
+                    <Form.Label className="mx-1 mt-2">Place of residence</Form.Label>
                     <Form.Control
                         value={readers.PlaceOfResidence}
-                        className="mt-2"
                         onChange={e => readers.setPlaceOfResidence(e.target.value)}
                         placeholder={"Enter place of residence"}
                     />
+                    <Form.Label className="mx-1 mt-2">Phone number</Form.Label>
                     <Form.Control
                         value={readers.PhoneNumber}
-                        className="mt-2"
                         onChange={e => readers.setPhoneNumber(e.target.value)}
                         placeholder={"Enter phone number"}
                     />

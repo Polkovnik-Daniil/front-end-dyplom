@@ -12,7 +12,7 @@ import CreateAuthor from "../components/modals/CreateAuthor";
 
 
 const Author = observer(() => {
-    const { author } = useContext(Context);
+    const { author, user } = useContext(Context);
 
     const [pagination, setPagination] = useState(0);
     const [authorVisible, setAuthorVisible] = useState(false);
@@ -50,7 +50,8 @@ const Author = observer(() => {
                         },
                     })}
                 />
-                <CreateAuthor show={authorVisible} onHide={() => setAuthorVisible(false)} />
+                { user.Role !== 'User' ? <CreateAuthor show={authorVisible} onHide={() => setAuthorVisible(false)} /> : null }
+
                 <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
                     setAuthorVisible(true);
                     author.setClean();

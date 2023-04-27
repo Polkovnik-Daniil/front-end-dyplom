@@ -16,7 +16,8 @@ const App = observer(() => {
         check().then(data => {
             user.setUser();
         }).catch((reason: AxiosError) => {
-            if (reason.response.status >= 400) {
+            console.log(reason.code === 'ERR_NETWORK');
+            if (reason.code === 'ERR_NETWORK' || reason.response.status >= 400) {
 
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");

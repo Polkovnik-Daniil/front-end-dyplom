@@ -35,20 +35,21 @@ const CreateAuthor = observer(({ show, onHide }) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Add new author
+                    {status ? "Add new author" : "Author"}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
+                    <Form.Label className="mx-1 mt-2">Id</Form.Label>
                     <Form.Control
                         value={author.Id}
                         onChange={e => author.setId(e.target.value)}
                         placeholder={"Id"}
                         disabled
                     />
+                    <Form.Label className="mx-1 mt-2">Name</Form.Label>
                     <Form.Control
                         value={author.Name}
-                        className="mt-2"
                         onChange={e => author.setName(e.target.value)}
                         placeholder={"Name"}
                     />

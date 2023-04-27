@@ -20,6 +20,7 @@ export default class UserStore {
         this._refreshToken = refreshToken;
         this._accessToken = accessToken;
         this._role = data["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+        this._serialNumber = data["http://schemas.microsoft.com/ws/2008/06/identity/claims/serialnumber"];
         this._access = this._role === "Admin" ? true : false;
     }
 
@@ -28,6 +29,7 @@ export default class UserStore {
         this._refreshToken = "";
         this._accessToken = "";
         this._role = "";
+        this._serialNumber = "";
         this._access = false;
     }
 
@@ -65,5 +67,9 @@ export default class UserStore {
 
     get Role() {
         return this._role;
+    }
+
+    get SerialNumber() {
+        return this._serialNumber;
     }
 }

@@ -12,7 +12,7 @@ import CreateBook from "../components/modals/CreateBook";
 
  
 const Books = observer(() => {
-    const { books } = useContext(Context);
+    const { books, user } = useContext(Context);
 
     const [pagination, setPagination] = useState(0);
     const [bookVisible, setBookVisible] = useState(false);
@@ -52,7 +52,6 @@ const Books = observer(() => {
                 <MaterialReactTable columns={columns} data={values}
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
-                            console.info(cell.row._valuesCache.title);
                             books.setId(cell.row._valuesCache.id);
                             books.setTitle(cell.row._valuesCache.title);
                             books.setRealise(cell.row._valuesCache.realise.split('T')[0]);
@@ -61,7 +60,7 @@ const Books = observer(() => {
                         },
                     })}
                 />
-                <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} />
+                { user.Role !== 'User' ? <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} /> : null }
                 <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
                     setBookVisible(true);
                     books.setClean();

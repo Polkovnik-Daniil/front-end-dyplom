@@ -10,6 +10,8 @@ import GenreStore from "./store/GenreStore";
 import ReaderStore from "./store/ReaderStore";
 import AuthorStore from "./store/AuthorStore";
 import EmployeesStore from "./store/EmployeesStore";
+import HistoryStore from "./store/HistoryStore";
+
 
 
 
@@ -27,7 +29,8 @@ root.render(
             genres: new GenreStore(),
             author: new AuthorStore(),
             readers: new ReaderStore(),
-            employees: new EmployeesStore()
+            employees: new EmployeesStore(),
+            history: new HistoryStore()
         }}>
             <App />
         </Context.Provider>

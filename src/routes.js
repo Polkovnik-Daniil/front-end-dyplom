@@ -6,8 +6,10 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Readers from "./pages/Readers";
 import Genre from "./pages/Genre";
-import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, REGISTRATION_ROUTE, NOTFOUND_ROUTE, GENRE_ROUTE, AUTHOR_ROUTE } from "./utils/consts";
+import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, REGISTRATION_ROUTE, NOTFOUND_ROUTE, GENRE_ROUTE, AUTHOR_ROUTE, HISTORY_ROUTE } from "./utils/consts";
 import Author from "./pages/Author";
+import History from "./pages/History";
+
 
 
 export const authRoutes = [
@@ -42,6 +44,10 @@ export const authRoutes = [
     {
         path: AUTHOR_ROUTE,
         element: <Author />
+    },
+    {
+        path: HISTORY_ROUTE,
+        element: <History />
     }
 ]
 

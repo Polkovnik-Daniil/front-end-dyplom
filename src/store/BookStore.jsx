@@ -19,9 +19,7 @@ export default class BookStore {
     }
 
     async setData(value) {
-        console.log(value);
         this._dataServ = value;
-        console.log(this._dataServ[0].title);
     }
 
     setOper(value) {

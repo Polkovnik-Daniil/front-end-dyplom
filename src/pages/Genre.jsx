@@ -12,7 +12,7 @@ import CreateGenre from "../components/modals/CreateGenre";
 
 
 const Genre = observer(() => {
-    const { genres } = useContext(Context);
+    const { genres, user } = useContext(Context);
 
     const [pagination, setPagination] = useState(0);
     const [genresVisible, setGenresVisible] = useState(false);
@@ -43,14 +43,13 @@ const Genre = observer(() => {
                 <MaterialReactTable columns={columns} data={values}
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
-                            console.info(cell.row._valuesCache.title);
                             genres.setId(cell.row._valuesCache.id);
                             genres.setName(cell.row._valuesCache.name);
                             setGenresVisible(true);
                         },
                     })}
                 />
-                <CreateGenre show={genresVisible} onHide={() => setGenresVisible(false)} id={genres.Id} name={genres.Name} />
+                {user.Role !== 'User' ? <CreateGenre show={genresVisible} onHide={() => setGenresVisible(false)} id={genres.Id} name={genres.Name} /> : null}
                 <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
                     setGenresVisible(true);
                     genres.setClean();

@@ -2,10 +2,9 @@ import { useContext } from "react"
 import { Context } from "../index";
 import { useNavigate } from "react-router-dom"
 import { observer } from "mobx-react-lite";
-import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, GENRE_ROUTE, AUTHOR_ROUTE } from "../utils/consts";
+import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, GENRE_ROUTE, AUTHOR_ROUTE, HISTORY_ROUTE } from "../utils/consts";
 
 const NavBar = observer(() => {
-    //TODO: 123
     const { user } = useContext(Context);
     const navigate = useNavigate();
 
@@ -17,6 +16,8 @@ const NavBar = observer(() => {
 
         navigate(LOGIN_ROUTE);
     }
+
+    var nameRole = user.Role;
 
     return user.isAuth ? (
         <nav class="navbar navbar-expand-lg navbar-light bg-light Center">
@@ -44,6 +45,11 @@ const NavBar = observer(() => {
                         <li class="nav-item">
                             <a class="nav-link" onClick={() => { navigate(GENRE_ROUTE); }}>
                                 Genre
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onClick={() => { navigate(HISTORY_ROUTE); }}>
+                                History
                             </a>
                         </li>
                         {

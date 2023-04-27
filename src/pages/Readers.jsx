@@ -6,15 +6,18 @@ import MaterialReactTable from 'material-react-table';
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-import { fetchReader } from "../http/readerAPI";
+import { fetchReader, fetchGetCountPage } from "../http/readerAPI";
 import CreateReader from "../components/modals/CreateReader";
 
 
 
 const Reader = observer(() => {
-    const { readers } = useContext(Context);
+    const { readers, user } = useContext(Context);
 
-    const [pagination, setPagination] = useState(0);
+    const [pagination, setPagination] = useState({
+        pageIndex: 0,
+        pageSize: 0, //customize the default page size
+    });
     const [readersVisible, setReadersVisible] = useState(false);
 
     const columns = [
@@ -43,14 +46,16 @@ const Reader = observer(() => {
             header: 'Phone number',
         }
     ];
-
+    
     const GetValue = async (pageIndex) => {
-        //readers.setPageSize(await fetchGetCountPage());
+        readers.setPageSize(await fetchGetCountPage(pageIndex));
+        setPagination({ pageIndex: pagination.pageIndex, pageSize: readers.CountPage });
         readers.setData(await fetchReader(pageIndex === null || pageIndex <= 0 ? 0 : pageIndex));
+        setPagination(pageIndex);
     }
 
     useEffect(() => {
-        GetValue(pagination);
+        GetValue(pagination.pageIndex);
     }, []);
 
     var values = readers.Data;
@@ -58,10 +63,11 @@ const Reader = observer(() => {
         return (
             <div className="d-flex flex-column">
                 <MaterialReactTable columns={columns} data={values}
+                    pageCount={ pagination }
+                    onPaginationChange={setPagination}
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
-                            console.info(cell.row._valuesCache.title);
-
+                            
                             readers.setId(cell.row._valuesCache.id);
                             readers.setName(cell.row._valuesCache.name);
                             readers.setSurname(cell.row._valuesCache.surname);
@@ -73,7 +79,7 @@ const Reader = observer(() => {
                         },
                     })}
                 />
-                <CreateReader show={readersVisible} onHide={() => setReadersVisible(false)}/>
+                { user.Role !== 'User' ? <CreateReader show={readersVisible} onHide={() => setReadersVisible(false)} /> : null }
                 <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
                     setReadersVisible(true);
                     readers.setClean();

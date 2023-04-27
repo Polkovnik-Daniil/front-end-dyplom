@@ -37,39 +37,40 @@ const CreateEmployees = observer(({ show, onHide }) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Add new book
+                    { status? "Add new employees" : "Employees"}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
+                    <Form.Label className="mx-1 mt-2">Id</Form.Label>
                     <Form.Control
                         value={employees.Id}
                         onChange={e => employees.setId(e.target.value)}
                         placeholder={"Id"}
                         disabled
                     />
+                    <Form.Label className="mx-1 mt-2">Name</Form.Label>
                     <Form.Control
                         value={employees.Name}
-                        className="mt-2"
                         onChange={e => employees.setName(e.target.value)}
                         placeholder={"Enter name"}
                     />
+                    <Form.Label className="mx-1 mt-2">Email</Form.Label>
                     <Form.Control
-                        className="mt-2"
                         value={employees.Email}
                         onChange={e => employees.setEmail(e.target.value)}
                         placeholder={"Enter email"}
                     />
+                    <Form.Label className="mx-1 mt-2">Password</Form.Label>
                     <Form.Control
                         type="text"
-                        className="mt-2"
                         value={employees.Password}
                         onChange={e => employees.setPassword(e.target.value)}
                         placeholder={"Enter password"}
                     />
+                    <Form.Label className="mx-1 mt-2">Role Id</Form.Label>
                     <Form.Control
                         type="number"
-                        className="mt-2"
                         min="1"
                         max="3"
                         value={employees.RoleId}
@@ -79,16 +80,16 @@ const CreateEmployees = observer(({ show, onHide }) => {
                     {
                         !status ?
                             <>
+                                <Form.Label className="mx-1 mt-2">Refresh token</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    className="mt-2"
                                     value={employees.RefreshToken}
                                     onChange={e => employees.setRefreshToken(e.target.value)}
                                     disabled
                                 />
+                                <Form.Label className="mx-1 mt-2">Refresh token expiry time</Form.Label>
                                 <Form.Control
                                     type="date"
-                                    className="mt-2"
                                     value={employees.RefreshTokenExpiryTime}
                                     onChange={e => employees.setRefreshTokenExpiryTime(e.target.value)}
                                 />
