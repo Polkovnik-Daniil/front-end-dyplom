@@ -1,26 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Modal from "react-bootstrap/Modal";
 import { Button, Form } from "react-bootstrap";
 import { createHistory, updateHistory, deleteHistory, fetchHistory } from "../../http/historyAPI";
+import { fetchReaderItem } from "../../http/readerAPI";
+import { fetchBookItem } from "../../http/bookAPI";
+
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index";
 
 
 const CreateHistory = observer(({ show, onHide }) => {
     const { history } = useContext(Context);
-    var status = history.BookId === '';
-
+    var status = history.New;
     const crudBook = async () => {
         var oper = history.Oper;
         switch (oper) {
             case 'u':
-                updateHistory(Number(history.Id), history.Name);
+                updateHistory(Number(history.ReaderId), Number(history.BookId), history.DateTimeStart, history.DateTimeEnd);
                 break;
             case 'c':
-                createHistory(history.Name);
+                createHistory(Number(history.ReaderId), Number(history.BookId), history.DateTimeStart, history.DateTimeEnd);
                 break;
             case 'd':
-                deleteHistory(Number(history.Id));
+                deleteHistory(Number(history.ReaderId), Number(history.BookId), history.DateTimeStart, history.DateTimeEnd);
                 break;
         }
         onHide();
@@ -42,41 +44,60 @@ const CreateHistory = observer(({ show, onHide }) => {
                 <Form>
                     <Form.Label className="mx-1 mt-2">Book Id</Form.Label>
                     <Form.Control
+                        type="number"
                         value={history.BookId}
-                        onChange={e => history.setBookId(e.target.value)}
+                        onChange={async (e) => {
+                            history.setBookId(e.target.value);
+                            var data = await fetchBookItem(history.BookId);
+                            history.setBookTitle(data.title);
+                        }}
                         placeholder={"Enter book Id"}
-                        
+                        disabled={!status} 
                     />
                     <Form.Label className="mx-1 mt-2">Book Title</Form.Label>
                     <Form.Control
                         value={history.BookTitle}
                         onChange={e => history.setBookTitle(e.target.value)}
                         placeholder={"Title"}
-                        
+                        disabled
                     />
                     <Form.Label className="mx-1 mt-2">Reader Id</Form.Label>
                     <Form.Control
+                        type="number"
                         value={history.ReaderId}
-                        onChange={e => history.setReaderId(e.target.value)}
+                        onChange={async(e) => {
+                            history.setReaderId(e.target.value)
+                            var data = await fetchReaderItem(history.ReaderId);
+                            history.setReaderName(data.name);
+                            history.setReaderSurname(data.surname);
+                            history.setReaderPatronymic(data.patronymic);
+                            history.setDateTimeStart(data.dateTimeStart);
+                            history.setDateTimeEnd(data.dateTimeEnd);
+                        }}
                         placeholder={"Enter reader Id"}
+                        disabled={!status} 
+
                     />
                     <Form.Label className="mx-1 mt-2">Reader name</Form.Label>
                     <Form.Control
                         value={history.ReaderName}
                         onChange={e => history.setReaderName(e.target.value)}
                         placeholder={"Enter reader name"}
+                        disabled
                     />
                     <Form.Label className="mx-1 mt-2">Reader surname</Form.Label>
                     <Form.Control
                         value={history.ReaderSurname}
                         onChange={e => history.setReaderSurname(e.target.value)}
                         placeholder={"Enter reader surname"}
+                        disabled
                     />
                     <Form.Label className="mx-1 mt-2">Reader patronymic</Form.Label>
                     <Form.Control
                         value={history.ReaderPatronymic}
                         onChange={e => history.setReaderPatronymic(e.target.value)}
                         placeholder={"Enter reader patronymic"}
+                        disabled
                     />
                     <Form.Label className="mx-1 mt-2">Issue date of the book</Form.Label>
                     <Form.Control

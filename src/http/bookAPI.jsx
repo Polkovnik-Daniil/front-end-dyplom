@@ -7,25 +7,28 @@ export const fetchBooks = async (pageIndex) => {
     const { data } = await $authHost.get(CONTROL_URL + `?PageIndex=${pageIndex === null || pageIndex <= 0 ? 0 : pageIndex}`);
     return data;
 }
-
+export const fetchBookItem = async (number) => {
+    const { data } = await $authHost.get(CONTROL_URL + `/${number}`);
+    return data;
+}
 export const fetchGetCountPage = async () => {
     const { data } = await $authHost.get(CONTROL_URL + `/CountPage`);
     return data;
 }
 
-export const createBook = async (title, realise, quantity) => {
+export const createBook = async (title, realise, quantity, genres) => {
     const { data } = await $authHost.post(CONTROL_URL,
         {
-            title, realise, quantity
+            title, realise, quantity, genres
         }
     );
     return data
 }
 
-export const updateBook = async (id, title, realise, quantity) => {
+export const updateBook = async (id, title, realise, quantity, genres) => {
     const { data } = await $authHost.put(CONTROL_URL,
         {
-            id, title, realise, quantity
+            id, title, realise, quantity, genres
         }
     );
     return data;

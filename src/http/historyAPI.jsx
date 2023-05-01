@@ -13,24 +13,20 @@ export const fetchGetCountPage = async () => {
     return data;
 }
 
-export const createHistory = async (title, realise, quantity) => {
-    const { data } = await $authHost.post(CONTROL_URL,
-        {
-            title, realise, quantity
-        }
-    );
+export const createHistory = async (readerId, bookId, dateTimeStart, dateTimeEnd) => {
+    const { data } = await $authHost.post(CONTROL_URL, {
+        readerId, bookId, dateTimeStart, dateTimeEnd
+    });
     return data
 }
 
-export const updateHistory = async (id, title, realise, quantity) => {
-    const { data } = await $authHost.put(CONTROL_URL,
-        {
-            id, title, realise, quantity
-        }
-    );
+export const updateHistory = async (readerId, bookId, dateTimeStart, dateTimeEnd) => {
+    const { data } = await $authHost.put(CONTROL_URL, {
+        readerId, bookId, dateTimeStart, dateTimeEnd
+    });
     return data;
 }
-export const deleteHistory = async (id) => {
-    const { data } = await $authHost.delete(CONTROL_URL + `/${id}`);
+export const deleteHistory = async (readerId, bookId, dateTimeStart, dateTimeEnd) => {
+    const { data } = await $authHost.delete(CONTROL_URL + `/${readerId}/${bookId}/${dateTimeStart }/${ dateTimeEnd }`);
     return data;
 }

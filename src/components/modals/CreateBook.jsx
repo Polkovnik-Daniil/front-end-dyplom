@@ -8,8 +8,7 @@ import { Context } from "../../index";
 
 const CreateBook = observer(({ show, onHide }) => {
     const { books } = useContext(Context);
-    let data = books.Data;
-    const [genre, setGenre] = useState([]);
+    const [genre, setGenre] = useState(books.Data.length !== 0 ? books.Data[books.Index].genres : []);
     const addGenre = () => {
         setGenre([...genre, { name: '', number: Date.now() }]);
     }
@@ -24,10 +23,10 @@ const CreateBook = observer(({ show, onHide }) => {
         var oper = books.Oper;
         switch (oper) {
             case 'u':
-                updateBook(Number(books.Id), books.Title, books.Realise, Number(books.Quantity));
+                updateBook(Number(books.Id), books.Title, books.Realise, Number(books.Quantity), genre);
                 break;
             case 'c':
-                createBook(books.Title, books.Realise, Number(books.Quantity));
+                createBook(books.Title, books.Realise, Number(books.Quantity), genre);
                 break;
             case 'd':
                 deleteBook(Number(books.Id));
@@ -84,7 +83,7 @@ const CreateBook = observer(({ show, onHide }) => {
                                 <Col md={4}>
                                     <Form.Control
                                         value={i.name}
-                                        placeholder="Enter title genre"
+                                        placeholder=""
                                         onChange={(e) => changeGenre('name', e.target.value, i.number)}
                                     />
                                 </Col>

@@ -84,6 +84,7 @@ const History = observer(() => {
                             history.setDateTimeStart(cell.row._valuesCache.dateTimeStart.split('T')[0]);
                             history.setDateTimeEnd(cell.row._valuesCache.dateTimeEnd.split('T')[0]);
 
+                            history.setNew(false);
                             setHistoryVisible(true);
                         },
                     })}

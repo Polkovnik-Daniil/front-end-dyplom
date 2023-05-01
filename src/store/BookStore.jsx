@@ -5,6 +5,7 @@ export default class BookStore {
     constructor() {
         this._dataServ = [];
         this._countPage = 0;
+        this._index = -1;
         this._Id = "";
         this._title = "";
         this._realise = "";
@@ -25,12 +26,15 @@ export default class BookStore {
     setOper(value) {
         this._oper = value;
     }
-
+    setIndex(value) {
+        this._index = value;
+    }
     setClean() {
         this._Id = "";
         this._title = "";
         this._realise = "";
         this._quantity = "";
+        this._index = -1;
         this._genres = [];
     }
     setId(value) {
@@ -75,6 +79,9 @@ export default class BookStore {
     }
     get PageSize() {
         return this._countPage;
+    }
+    get Index() {
+        return this._index;
     }
     get Genres(){
         return this._genres;

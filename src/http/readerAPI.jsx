@@ -7,6 +7,10 @@ export const fetchReader = async (pageIndex) => {
     const { data } = await $authHost.get(READER_URL + `?PageIndex=${pageIndex === null || pageIndex <= 0 ? 0 : pageIndex}`);
     return data;
 }
+export const fetchReaderItem = async (number) => {
+    const { data } = await $authHost.get(READER_URL + `/${number}`);
+    return data;
+}
 
 export const fetchGetCountPage = async () => {
     const { data } = await $authHost.get(READER_URL + `/CountPage`);

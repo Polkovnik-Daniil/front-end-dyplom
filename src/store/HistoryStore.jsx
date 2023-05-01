@@ -7,7 +7,7 @@ export default class HistoryStore {
         this._countPage = 0;
 
         this._Id = "";
-        
+        this._new = false;
         this._book = null;
         this._bookId = "";
         this._bookTitle = "";
@@ -40,7 +40,9 @@ export default class HistoryStore {
 
     setClean() {
         this._Id = "";
-        
+        this._new = true;
+
+
         this._book = null;
         this._bookId = "";
         this._bookTitle = "";
@@ -60,7 +62,9 @@ export default class HistoryStore {
         this._Id = value;
     }
 
-
+    setNew(value) {
+        this._new = value;
+    }
     setBook(value) {
         this._book = value;
     }
@@ -103,7 +107,9 @@ export default class HistoryStore {
     get Data() {
         return this._dataServ;
     }
-
+    get New() {
+        return this._new;
+    }
 
 
     get Book() {

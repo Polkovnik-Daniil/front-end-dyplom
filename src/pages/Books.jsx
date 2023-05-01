@@ -12,8 +12,9 @@ import CreateBook from "../components/modals/CreateBook";
 
  
 const Books = observer(() => {
+    console.clear();
     const { books, user } = useContext(Context);
-
+    const [data, setData] = useState([]);
     const [pagination, setPagination] = useState(0);
     const [bookVisible, setBookVisible] = useState(false);
 
@@ -38,7 +39,9 @@ const Books = observer(() => {
 
     const GetValue = async (pageIndex) => {
         //books.setPageSize(await fetchGetCountPage());
-        books.setData(await fetchBooks(pageIndex === null || pageIndex <= 0 ? 0 : pageIndex));
+        const data = await fetchBooks(pageIndex === null || pageIndex <= 0 ? 0 : pageIndex);
+        console.log(data);
+        books.setData(data);
     }
 
     useEffect(() => {
@@ -52,15 +55,18 @@ const Books = observer(() => {
                 <MaterialReactTable columns={columns} data={values}
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
+                            console.log('oikfgb');
+                            console.log(cell.row._valuesCache.genres);
                             books.setId(cell.row._valuesCache.id);
                             books.setTitle(cell.row._valuesCache.title);
                             books.setRealise(cell.row._valuesCache.realise.split('T')[0]);
                             books.setQuantity(cell.row._valuesCache.quantity);
+                            books.setIndex(cell.row.index);
                             setBookVisible(true);
                         },
                     })}
                 />
-                { user.Role !== 'User' ? <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} /> : null }
+                {user.Role !== 'User' && bookVisible ? <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} /> : null}
                 <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
                     setBookVisible(true);
                     books.setClean();
