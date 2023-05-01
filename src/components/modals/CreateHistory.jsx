@@ -45,14 +45,14 @@ const CreateHistory = observer(({ show, onHide }) => {
                         value={history.BookId}
                         onChange={e => history.setBookId(e.target.value)}
                         placeholder={"Enter book Id"}
-                        disabled
+                        
                     />
                     <Form.Label className="mx-1 mt-2">Book Title</Form.Label>
                     <Form.Control
                         value={history.BookTitle}
                         onChange={e => history.setBookTitle(e.target.value)}
                         placeholder={"Title"}
-                        disabled
+                        
                     />
                     <Form.Label className="mx-1 mt-2">Reader Id</Form.Label>
                     <Form.Control

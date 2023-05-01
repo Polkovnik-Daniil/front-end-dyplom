@@ -31,6 +31,7 @@ export default class BookStore {
         this._title = "";
         this._realise = "";
         this._quantity = "";
+        this._genres = [];
     }
     setId(value) {
         this._Id = value;
@@ -46,6 +47,9 @@ export default class BookStore {
 
     setQuantity(data) {
         this._quantity = data;
+    }
+    setGenres(data) {
+        this._genres = data;
     }
     get Oper() {
         return this._oper;
@@ -71,5 +75,8 @@ export default class BookStore {
     }
     get PageSize() {
         return this._countPage;
+    }
+    get Genres(){
+        return this._genres;
     }
 }

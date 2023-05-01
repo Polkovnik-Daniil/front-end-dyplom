@@ -8,21 +8,21 @@ import { Context } from "../../index";
 
 const CreateBook = observer(({ show, onHide }) => {
     const { books } = useContext(Context);
-    const [ genres, setGenres ] = useState([]);
+    let data = books.Data;
+    const [genre, setGenre] = useState([]);
     const addGenre = () => {
-        setGenres(...genres, { genre: '', number: Date.now() })
+        setGenre([...genre, { name: '', number: Date.now() }]);
     }
-    const removeGenres = (number) => {
-        setGenres(genres.filter(i => i.number !== number))
+    const removeGenre = (number) => {
+        setGenre(genre.filter(i => i.number !== number))
     }
-    const changeGenres = (key, value, number) => {
-        setGenres(genres.map(i => i.number === number ? { ...i, [key]: value } : i))
+    const changeGenre = (key, value, number) => {
+        setGenre(genre.map(i => i.number === number ? { ...i, [key]: value } : i))
     }
     var status = books.Id === '';
     const crudBook = async () => {
         var oper = books.Oper;
-        switch (oper) 
-        {
+        switch (oper) {
             case 'u':
                 updateBook(Number(books.Id), books.Title, books.Realise, Number(books.Quantity));
                 break;
@@ -76,26 +76,29 @@ const CreateBook = observer(({ show, onHide }) => {
                         value={books.Realise}
                         onChange={e => books.setRealise(e.target.value)}
                     />
-                    <Button variant="outline-success mt-2 align-self-end" onClick={addGenre}>Add genre</Button>
-                    {genres.map(i =>
-                        <Row className="mt-4" key={i.number}>
-                            <Col md={4}>
-                                <Form.Control
-                                    value={i.genres}
-                                    onChange={(e) => changeGenres('genres', e.target.value, i.number)}
-                                    placeholder="Enter title genre"
-                                />
-                            </Col>
-                            <Col md={4}>
-                                <Button
-                                    onClick={() => removeGenres(i.number)}
-                                    variant={"outline-danger"}
-                                >
-                                    Delete
-                                </Button>
-                            </Col>
-                        </Row>
-                    )}
+                    <Button variant="outline-success mt-2 " onClick={addGenre}>Add genre</Button>
+                    <hr />
+                    {
+                        genre.map(i =>
+                            <Row className="mt-4" key={i.number}>
+                                <Col md={4}>
+                                    <Form.Control
+                                        value={i.name}
+                                        placeholder="Enter title genre"
+                                        onChange={(e) => changeGenre('name', e.target.value, i.number)}
+                                    />
+                                </Col>
+                                <Col md={4}>
+                                    <Button
+                                        onClick={() => removeGenre(i.number)}
+                                        variant={"outline-danger"}
+                                    >
+                                        Delete
+                                    </Button>
+                                </Col>
+                            </Row>
+                        )
+                    }
                 </Form>
             </Modal.Body>
             <Modal.Footer>
@@ -104,7 +107,7 @@ const CreateBook = observer(({ show, onHide }) => {
                     crudBook();
                 }}>Update</Button> : null}
                 <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
-                    books.setOper(status ? 'c' : 'd'); 
+                    books.setOper(status ? 'c' : 'd');
                     crudBook();
                 }}>{status ? "Add" : "Delete"}</Button>
                 <Button variant="outline-danger" onClick={onHide}>Close</Button>
