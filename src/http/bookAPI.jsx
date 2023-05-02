@@ -16,16 +16,16 @@ export const fetchGetCountPage = async () => {
     return data;
 }
 
-export const createBook = async (title, realise, quantity, genres) => {
+export const createBook = async (title, realise, quantity, count, genres) => {
     const { data } = await $authHost.post(CONTROL_URL,
         {
-            title, realise, quantity, genres
+            title, realise, quantity, count, genres
         }
     );
     return data
 }
 
-export const updateBook = async (id, title, realise, quantity, genres) => {
+export const updateBook = async (id, title, realise, quantity, count, genres) => {
     const { data } = await $authHost.put(CONTROL_URL,
         {
             id, title, realise, quantity, genres

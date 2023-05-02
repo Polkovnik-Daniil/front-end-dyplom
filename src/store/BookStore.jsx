@@ -11,6 +11,7 @@ export default class BookStore {
         this._realise = "";
         this._quantity = "";
         this._genres = [];
+        this._count = 0;
         this._oper = '';
         makeAutoObservable(this);
     }
@@ -52,6 +53,9 @@ export default class BookStore {
     setQuantity(data) {
         this._quantity = data;
     }
+    setCount(value) {
+        this._count = value;
+    }
     setGenres(data) {
         this._genres = data;
     }
@@ -85,5 +89,8 @@ export default class BookStore {
     }
     get Genres(){
         return this._genres;
+    }
+    get Count() {
+        return this._count;
     }
 }

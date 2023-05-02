@@ -34,6 +34,10 @@ const Books = observer(() => {
         {
             accessorKey: 'quantity',
             header: 'Quantity',
+        },
+        {
+            accessorKey: 'count',
+            header: 'Count',
         }
     ];
 
@@ -61,6 +65,7 @@ const Books = observer(() => {
                             books.setTitle(cell.row._valuesCache.title);
                             books.setRealise(cell.row._valuesCache.realise.split('T')[0]);
                             books.setQuantity(cell.row._valuesCache.quantity);
+                            books.setCount(cell.row._valuesCache.count);
                             books.setIndex(cell.row.index);
                             setBookVisible(true);
                         },

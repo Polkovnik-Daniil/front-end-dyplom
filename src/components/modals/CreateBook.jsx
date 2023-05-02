@@ -23,10 +23,10 @@ const CreateBook = observer(({ show, onHide }) => {
         var oper = books.Oper;
         switch (oper) {
             case 'u':
-                updateBook(Number(books.Id), books.Title, books.Realise, Number(books.Quantity), genre);
+                updateBook(Number(books.Id), books.Title, books.Realise, Number(books.Quantity), Number(books.Count), genre);
                 break;
             case 'c':
-                createBook(books.Title, books.Realise, Number(books.Quantity), genre);
+                createBook(books.Title, books.Realise, Number(books.Quantity), Number(books.Count), genre);
                 break;
             case 'd':
                 deleteBook(Number(books.Id));
@@ -68,6 +68,13 @@ const CreateBook = observer(({ show, onHide }) => {
                         value={books.Quantity}
                         onChange={e => books.setQuantity(e.target.value)}
                         placeholder={"Quantity"}
+                    />
+                    <Form.Label className="mx-1 mt-2">Count</Form.Label>
+                    <Form.Control
+                        type="number"
+                        value={books.Count}
+                        onChange={e => books.setCount(e.target.value)}
+                        placeholder={"Count"}
                     />
                     <Form.Label className="mx-1 mt-2">Realise</Form.Label>
                     <Form.Control
