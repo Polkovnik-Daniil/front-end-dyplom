@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 
 export default class BookStore {
     constructor() {
+        this._new = false;
         this._dataServ = [];
         this._countPage = 0;
         this._index = -1;
@@ -31,12 +32,17 @@ export default class BookStore {
         this._index = value;
     }
     setClean() {
+        this._new = true;
         this._Id = "";
         this._title = "";
         this._realise = "";
         this._quantity = "";
         this._index = -1;
+        this._count = 0;
         this._genres = [];
+    }
+    setNew(value) {
+        this._new = value;
     }
     setId(value) {
         this._Id = value;
@@ -89,6 +95,9 @@ export default class BookStore {
     }
     get Genres(){
         return this._genres;
+    }
+    get New() {
+        return this._new;
     }
     get Count() {
         return this._count;

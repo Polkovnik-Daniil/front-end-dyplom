@@ -8,28 +8,28 @@ import { Context } from "../../index";
 
 const CreateBook = observer(({ show, onHide }) => {
     const { books } = useContext(Context);
-    const [genre, setGenre] = useState(books.Data.length !== 0 ? books.Data[books.Index].genres : []);
+    const [genre, setGenre] = useState(!books.New ? books.Data[books.Index].genres : []); //books.Data.length !== 0 
     const addGenre = () => {
-        setGenre([...genre, { name: '', number: Date.now() }]);
+        setGenre([...genre, { name: '', id: parseInt(Date.now(), 8)}]);
     }
-    const removeGenre = (number) => {
-        setGenre(genre.filter(i => i.number !== number))
+    const removeGenre = (id) => {
+        setGenre(genre.filter(i => i.id !== id))
     }
-    const changeGenre = (key, value, number) => {
-        setGenre(genre.map(i => i.number === number ? { ...i, [key]: value } : i))
+    const changeGenre = (key, value, id) => {
+        setGenre(genre.map(i => i.id === id ? { ...i, [key]: value } : i))
     }
     var status = books.Id === '';
     const crudBook = async () => {
         var oper = books.Oper;
         switch (oper) {
             case 'u':
-                updateBook(Number(books.Id), books.Title, books.Realise, Number(books.Quantity), Number(books.Count), genre);
+                await updateBook(Number(books.Id), books.Title, books.Realise, Number(books.Quantity), Number(books.Count), genre);
                 break;
             case 'c':
-                createBook(books.Title, books.Realise, Number(books.Quantity), Number(books.Count), genre);
+                await createBook(books.Title, books.Realise, Number(books.Quantity), Number(books.Count), genre);
                 break;
             case 'd':
-                deleteBook(Number(books.Id));
+                await deleteBook(Number(books.Id));
                 break;
         }
         onHide();
@@ -86,17 +86,21 @@ const CreateBook = observer(({ show, onHide }) => {
                     <hr />
                     {
                         genre.map(i =>
-                            <Row className="mt-4" key={i.number}>
+                            <Row className="mt-4" key={i.id}>
                                 <Col md={4}>
                                     <Form.Control
                                         value={i.name}
                                         placeholder=""
-                                        onChange={(e) => changeGenre('name', e.target.value, i.number)}
+                                        onChange={(e) => changeGenre('name', e.target.value, i.id)}
                                     />
                                 </Col>
                                 <Col md={4}>
                                     <Button
-                                        onClick={() => removeGenre(i.number)}
+                                        key={i.id}
+                                        onClick={() => {
+                                            console.log(i.id);
+                                            removeGenre(i.id)
+                                        }}
                                         variant={"outline-danger"}
                                     >
                                         Delete

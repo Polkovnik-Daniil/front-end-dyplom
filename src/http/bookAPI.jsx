@@ -28,7 +28,7 @@ export const createBook = async (title, realise, quantity, count, genres) => {
 export const updateBook = async (id, title, realise, quantity, count, genres) => {
     const { data } = await $authHost.put(CONTROL_URL,
         {
-            id, title, realise, quantity, genres
+            id, title, realise, quantity, count, genres
         }
     );
     return data;

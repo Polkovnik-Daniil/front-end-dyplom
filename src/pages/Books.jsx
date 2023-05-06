@@ -12,7 +12,6 @@ import CreateBook from "../components/modals/CreateBook";
 
  
 const Books = observer(() => {
-    console.clear();
     const { books, user } = useContext(Context);
     const [data, setData] = useState([]);
     const [pagination, setPagination] = useState(0);
@@ -44,7 +43,6 @@ const Books = observer(() => {
     const GetValue = async (pageIndex) => {
         //books.setPageSize(await fetchGetCountPage());
         const data = await fetchBooks(pageIndex === null || pageIndex <= 0 ? 0 : pageIndex);
-        console.log(data);
         books.setData(data);
     }
 
@@ -59,8 +57,6 @@ const Books = observer(() => {
                 <MaterialReactTable columns={columns} data={values}
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
-                            console.log('oikfgb');
-                            console.log(cell.row._valuesCache.genres);
                             books.setId(cell.row._valuesCache.id);
                             books.setTitle(cell.row._valuesCache.title);
                             books.setRealise(cell.row._valuesCache.realise.split('T')[0]);
