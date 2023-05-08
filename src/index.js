@@ -11,6 +11,7 @@ import ReaderStore from "./store/ReaderStore";
 import AuthorStore from "./store/AuthorStore";
 import EmployeesStore from "./store/EmployeesStore";
 import HistoryStore from "./store/HistoryStore";
+import AuthorshipStore from "./store/AuthorshipStore";
 
 
 
@@ -30,7 +31,8 @@ root.render(
             author: new AuthorStore(),
             readers: new ReaderStore(),
             employees: new EmployeesStore(),
-            history: new HistoryStore()
+            history: new HistoryStore(),
+            authorship: new AuthorshipStore()
         }}>
             <App />
         </Context.Provider>

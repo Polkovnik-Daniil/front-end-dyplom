@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { Context } from "../index";
 import { useNavigate } from "react-router-dom"
 import { observer } from "mobx-react-lite";
-import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, GENRE_ROUTE, AUTHOR_ROUTE, HISTORY_ROUTE } from "../utils/consts";
+import { ABOUTUS_ROUTE, BOOKS_ROUTE, EMPLOYEES_ROUTE, HOME_ROUTE, LOGIN_ROUTE, READERS_ROUTE, GENRE_ROUTE, AUTHOR_ROUTE, HISTORY_ROUTE, AUTHORSHIP_ROUTE } from "../utils/consts";
 
 const NavBar = observer(() => {
     const { user } = useContext(Context);
@@ -50,6 +50,11 @@ const NavBar = observer(() => {
                         <li class="nav-item">
                             <a class="nav-link" onClick={() => { navigate(HISTORY_ROUTE); }}>
                                 History
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onClick={() => { navigate(AUTHORSHIP_ROUTE); }}>
+                                Authorship
                             </a>
                         </li>
                         {

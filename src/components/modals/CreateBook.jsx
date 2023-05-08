@@ -34,6 +34,7 @@ const CreateBook = observer(({ show, onHide }) => {
         }
         onHide();
         books.setData(await fetchBooks(0));
+        //books.set
         setTimeout(window.location.reload(true), 1500);
     }
     return (

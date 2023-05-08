@@ -14,7 +14,10 @@ import CreateBook from "../components/modals/CreateBook";
 const Books = observer(() => {
     const { books, user } = useContext(Context);
     const [data, setData] = useState([]);
-    const [pagination, setPagination] = useState(0);
+    const [pagination, setPagination] = useState({
+        pageIndex: 0,
+        pageSize: 0, //customize the default page size
+    });
     const [bookVisible, setBookVisible] = useState(false);
 
     const columns = [
@@ -41,8 +44,9 @@ const Books = observer(() => {
     ];
 
     const GetValue = async (pageIndex) => {
-        //books.setPageSize(await fetchGetCountPage());
-        const data = await fetchBooks(pageIndex === null || pageIndex <= 0 ? 0 : pageIndex);
+        books.setPageSize(await fetchGetCountPage());
+        setPagination({ pageIndex: pagination.pageIndex, pageSize: books.CountPage })
+        const data = await fetchBooks(pageIndex.pageIndex);
         books.setData(data);
     }
 
@@ -55,6 +59,10 @@ const Books = observer(() => {
         return (
             <div className="d-flex flex-column">
                 <MaterialReactTable columns={columns} data={values}
+
+                    pageCount={pagination}
+                    onPaginationChange={setPagination}
+
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
                             books.setId(cell.row._valuesCache.id);
