@@ -9,7 +9,7 @@ export default class EmployeesStore {
         this._name = "";
         this._email = "";
         this._password="";
-        this._roleId = "";
+        this._roleId = 1;
         this._roleName = "";
         this._refreshToken="";
         this._refreshTokenExpiryTime="";
@@ -31,7 +31,7 @@ export default class EmployeesStore {
         this._name = "";
         this._email = "";
         this._password = "";
-        this._roleId = "";
+        this._roleId = 1;
         this._roleName = "";
         this._refreshToken = "";
         this._refreshTokenExpiryTime = "";

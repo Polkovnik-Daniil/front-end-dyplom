@@ -58,7 +58,7 @@ const Books = observer(() => {
     if (values !== null) {
         return (
             <div className="d-flex flex-column">
-                <MaterialReactTable columns={columns} data={values}                 
+                <MaterialReactTable columns={columns} data={values}
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
                             books.setId(cell.row._valuesCache.id);
@@ -71,12 +71,12 @@ const Books = observer(() => {
                         },
                     })}
                 />
-                { bookVisible ? <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} /> : null}
+                {bookVisible ? <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} /> : null}
                 {
                     user.Role !== 'User' ? <button type="button" class="btn btn-primary align-self-end m-3" onClick={() => {
-                    setBookVisible(true);
-                    books.setClean();
-                }}>Add new book</button>: null }
+                        setBookVisible(true);
+                        books.setClean();
+                    }}>Add new book</button> : null}
             </div>
         );
     }

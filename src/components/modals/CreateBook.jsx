@@ -72,13 +72,13 @@ const CreateBook = observer(({ show, onHide }) => {
                         placeholder={"Id"}
                         disabled
                     />
-                    <Form.Label className="mx-1 mt-2">Title</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: books.Title === '' ? 'red' : 'black' }}>Title</Form.Label>
                     <Form.Control
                         value={books.Title}
                         onChange={e => books.setTitle(e.target.value)}
                         placeholder={"Title"}
                     />
-                    <Form.Label className="mx-1 mt-2">Quantity</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: books.Quantity === '' ? 'red' : 'black' }}>Quantity</Form.Label>
                     <Form.Control
                         type="number"
                         min={ 0 }
@@ -91,7 +91,7 @@ const CreateBook = observer(({ show, onHide }) => {
                         }}
                         placeholder={"Quantity"}
                     />
-                    <Form.Label className="mx-1 mt-2">Count</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: books.Count === '' ? 'red' : 'black' }}>Count</Form.Label>
                     <Form.Control
                         type="number"
                         min={ 0 }
@@ -110,7 +110,9 @@ const CreateBook = observer(({ show, onHide }) => {
                         value={books.Realise ? books.Realise : books.setRealise(new Date().toISOString().split('T')[0])}
                         onChange={e => books.setRealise(e.target.value)}
                     />
-
+                    {
+                        !books.Title ? <Form.Label className="mx-1 mt-2" style={{color : 'red'} }>Field Title is empty!</Form.Label> : null
+                    }
                     <hr />
                     <Form.Label className="mx-1 mt-2 fs-3">Genres</Form.Label>
                     {
@@ -196,11 +198,17 @@ const CreateBook = observer(({ show, onHide }) => {
                     <Modal.Footer>
                         {
                             !status ? <Button variant="outline-success" onClick={() => {
+                                if (books.Title === '') {
+                                    return;
+                                }
                                 books.setOper('u');
                                 crudBook();
                             }}>Update</Button> : null
                         }
-                        <Button variant={ status ? "outline-success" : "outline-danger" } onClick={() => {
+                        <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
+                            if (books.Title === '') {
+                                return;
+                            }
                             books.setOper(status ? 'c' : 'd');
                             crudBook();
                         }}>{status ? "Add" : "Delete"}</Button>

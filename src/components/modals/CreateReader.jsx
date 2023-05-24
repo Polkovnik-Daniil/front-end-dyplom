@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Modal from "react-bootstrap/Modal";
 import { Button, Form } from "react-bootstrap";
 import { createReader, updateReader, deleteReader, fetchReader } from "../../http/readerAPI";
@@ -8,6 +8,7 @@ import { Context } from "../../index";
 
 const CreateReader = observer(({ show, onHide }) => {
     const { readers, user } = useContext(Context);
+    const [isCorrPhone, setCorrPhone] = useState(true);
     var status = readers.Id === '';
     const crudBook = async () => {
         var oper = readers.Oper;
@@ -72,7 +73,7 @@ const CreateReader = observer(({ show, onHide }) => {
                         onChange={e => readers.setPlaceOfResidence(e.target.value)}
                         placeholder={"Enter place of residence"}
                     />
-                    <Form.Label className="mx-1 mt-2" style={{ color: readers.PhoneNumber === '' ? 'red' : 'black' }}>Phone number</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: readers.PhoneNumber === '' || !isCorrPhone  ? 'red' : 'black' }}>Phone number</Form.Label>
                     <Form.Control
                         value={readers.PhoneNumber}
                         onChange={e => readers.setPhoneNumber(e.target.value)}
@@ -84,10 +85,25 @@ const CreateReader = observer(({ show, onHide }) => {
                 <Modal.Footer>
                     {
                         !status ? <Button variant="outline-success" onClick={() => {
+                            if (!readers.Id || !readers.Name || !readers.Surname || !readers.Patronymic || !readers.PlaceOfResidence || !readers.PhoneNumber) {
+                                return;
+                            }
+                            const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+                            if (!regEx.test(readers.PhoneNumber)) {
+                                setCorrPhone(false);
+                                return;
+                            }
                             readers.setOper('u');
                             crudBook();
                         }}>Update</Button> : null}
                     <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
+                        if (!readers.Name || !readers.Surname || !readers.Patronymic || !readers.PlaceOfResidence || !readers.PhoneNumber) {
+                            return;
+                        }
+                        if (readers.PhoneNumber.match(/\d/g).length!==11) {
+                            setCorrPhone(false);
+                            return;
+                        }
                         readers.setOper(status ? 'c' : 'd');
                         crudBook();
                     }}>{status ? "Add" : "Delete"}</Button>

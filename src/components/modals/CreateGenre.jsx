@@ -49,7 +49,7 @@ const CreateGenre = observer(({ show, onHide }) => {
                         placeholder={"Id"}
                         disabled
                     />
-                    <Form.Label className="mx-1 mt-2">Name</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: genres.Name === '' ? 'red' : 'black' }}>Name</Form.Label>
                     <Form.Control
                         value={genres.Name}
                         onChange={e => genres.setName(e.target.value)}
@@ -61,10 +61,16 @@ const CreateGenre = observer(({ show, onHide }) => {
             {user.Role !== 'User' ?
                 <Modal.Footer>
                     {!status ? <Button variant="outline-success" onClick={() => {
+                        if (genres.Name === '') {
+                            return;
+                        }
                         genres.setOper('u');
                         crudBook();
                     }}>Update</Button> : null}
                     <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
+                        if (genres.Name === '') {
+                            return;
+                        }
                         genres.setOper(status ? 'c' : 'd');
                         crudBook();
                     }}>{status ? "Add" : "Delete"}</Button>

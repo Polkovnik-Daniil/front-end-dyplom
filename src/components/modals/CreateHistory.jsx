@@ -7,6 +7,7 @@ import { fetchBookItem } from "../../http/bookAPI";
 
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index";
+import Books from '../../pages/Books';
 
 
 const CreateHistory = observer(({ show, onHide }) => {
@@ -54,20 +55,25 @@ const CreateHistory = observer(({ show, onHide }) => {
                                 e.target.value = e.target.value.replace('-', '');
                                 history.setBookId(e.target.value);
                             }
-                            var data = await fetchBookItem(history.BookId);
+                            var data = await fetchBookItem(history.BookId).catch((error) => {
+                                if (error.response.status === 400) {
+                                    history.setBookTitle('');
+                                    return;
+                                };
+                            });
                             history.setBookTitle(data.title);
                         }}
                         placeholder={"Enter book Id"}
                         disabled={!status}
                     />
-                    <Form.Label className="mx-1 mt-2">Book Title</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: history.BookTitle === '' ? 'red' : 'black' }}>Book Title</Form.Label>
                     <Form.Control
                         value={history.BookTitle}
                         onChange={e => history.setBookTitle(e.target.value)}
                         placeholder={"Title"}
                         disabled
                     />
-                    <Form.Label className="mx-1 mt-2">Reader Id</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: history.ReaderId === '' ? 'red' : 'black' }}>Reader Id</Form.Label>
                     <Form.Control
                         type="number"
                         min={ 0 }
@@ -77,7 +83,17 @@ const CreateHistory = observer(({ show, onHide }) => {
                                 e.target.value = e.target.value.replace('-', '');
                                 history.setReaderId(e.target.value);
                             }
-                            var data = await fetchReaderItem(history.ReaderId);
+                            var data = await fetchReaderItem(history.ReaderId).catch((error) => {
+                                if (error.response.status === 400) {
+                                    history.setReaderId(e.target.value);
+                                    history.setReaderName('');
+                                    history.setReaderSurname('');
+                                    history.setReaderPatronymic('');
+                                    history.setDateTimeStart(history.setDateTimeStart(new Date().toISOString().split('T')[0]));
+                                    history.setDateTimeEnd(new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0]);
+                                    return;
+                                }
+                            });
                             history.setReaderName(data.name);
                             history.setReaderSurname(data.surname);
                             history.setReaderPatronymic(data.patronymic);
@@ -88,34 +104,34 @@ const CreateHistory = observer(({ show, onHide }) => {
                         disabled={!status}
 
                     />
-                    <Form.Label className="mx-1 mt-2">Reader name</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: history.ReaderName === '' ? 'red' : 'black' }}>Reader name</Form.Label>
                     <Form.Control
                         value={ history.ReaderName }
                         onChange={e => history.setReaderName(e.target.value)}
                         placeholder={"Enter reader name"}
                         disabled
                     />
-                    <Form.Label className="mx-1 mt-2">Reader surname</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: history.ReaderSurname === '' ? 'red' : 'black' }}>Reader surname</Form.Label>
                     <Form.Control
                         value={ history.ReaderSurname }
                         onChange={e => history.setReaderSurname(e.target.value)}
                         placeholder={"Enter reader surname"}
                         disabled
                     />
-                    <Form.Label className="mx-1 mt-2">Reader patronymic</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: history.ReaderPatronymic === '' ? 'red' : 'black' }}>Reader patronymic</Form.Label>
                     <Form.Control
                         value={ history.ReaderPatronymic }
                         onChange={e => history.setReaderPatronymic(e.target.value)}
                         placeholder={"Enter reader patronymic"}
                         disabled
                     />
-                    <Form.Label className="mx-1 mt-2">Issue date of the book</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: history.DateTimeStart === '' ? 'red' : 'black' }}>Issue date of the book</Form.Label>
                     <Form.Control
                         type="date"
                         value={ history.DateTimeStart ? history.DateTimeStart : history.setDateTimeStart(new Date().toISOString().split('T')[0]) }
                         onChange={e => { history.setDateTimeStart(e.target.value) }}
                     />
-                    <Form.Label className="mx-1 mt-2">Due date of the book</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: history.DateTimeEnd === '' ? 'red' : 'black' }}>Due date of the book</Form.Label>
                     <Form.Control
                         type="date"
                         value={history.DateTimeEnd ? history.DateTimeEnd : history.setDateTimeEnd(new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0])}
@@ -125,10 +141,24 @@ const CreateHistory = observer(({ show, onHide }) => {
             </Modal.Body>
             <Modal.Footer>
                 {!status ? <Button variant="outline-success" onClick={() => {
+                    if (history.BookTitle === '' || history.ReaderName === '') {
+                        return;
+                    }
+                    
+                    if (new Date(history.DateTimeStart) > new Date(history.DateTimeEnd)) {
+                        alert("The date of acceptance of the book cannot be set earlier than the date of delivery of the book!");
+                    }
                     history.setOper('u');
                     crudBook();
                 }}>Update</Button> : null}
                 <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
+                    if (history.BookTitle === '' || history.ReaderName === '') {
+                        return;
+                    }
+                    if (new Date(history.DateTimeStart) > new Date(history.DateTimeEnd)) {
+                        alert("The date of acceptance of the book cannot be set earlier than the date of delivery of the book!");
+                        return;
+                    }
                     history.setOper(status ? 'c' : 'd');
                     crudBook();
                 }}>{status ? "Add" : "Delete"}</Button>

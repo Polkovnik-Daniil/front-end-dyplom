@@ -9,11 +9,11 @@ export default class HistoryStore {
         this._Id = "";
         this._new = false;
         this._book = null;
-        this._bookId = "";
+        this._bookId = 0;
         this._bookTitle = "";
 
         this._reader = null;
-        this._readerId = "";
+        this._readerId = 0;
         this._readerName = "";
         this._readerSurname = "";
         this._readerPatronymic = "";
@@ -44,11 +44,11 @@ export default class HistoryStore {
 
 
         this._book = null;
-        this._bookId = "";
+        this._bookId = 0;
         this._bookTitle = "";
 
         this._reader = null;
-        this._readerId = "";
+        this._readerId = 0;
         this._readerName = "";
         this._readerSurname = "";
         this._readerPatronymic = "";

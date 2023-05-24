@@ -19,6 +19,8 @@ const CreateAuthorship = observer(({ show, onHide }) => {
             case 'd':
                 deleteAuthorship(Number(authorship.AuthorId), Number(authorship.BookId));
                 break;
+            default:
+                break;
         }
         onHide();
         authorship.setData(await fetchAuthorship(0));
@@ -37,20 +39,28 @@ const CreateAuthorship = observer(({ show, onHide }) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Label className="mx-1 mt-2">Book Id</Form.Label>
+                    <Form.Label className="mx-1 mt-2" >Book Id</Form.Label>
                     <Form.Control
                         type="number"
+                        min={0 }
                         value={authorship.BookId}
                         onChange={async (e) => {
-                            authorship.setBookId(e.target.value);
-                            var data = await fetchBookItem(authorship.BookId);
+                            if (e.target.value !== '-' && e.target.value !== '') {
+                                e.target.value = e.target.value.replace('-', '');
+                                authorship.setBookId(e.target.value);
+                            }
+                            var data = await fetchBookItem(authorship.BookId).catch((error) => {
+                                authorship.setBookTitle('');
+                                return;
+                            });
                             authorship.setBookTitle(data.title);
                         }}
                         placeholder={"Enter book Id"}
                         disabled={!status}
                     />
-                    <Form.Label className="mx-1 mt-2">Book Title</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: authorship.BookTitle === '' ? 'red' : 'black' }}>Book Title</Form.Label>
                     <Form.Control
+                        min={ 0 }
                         value={authorship.BookTitle}
                         onChange={e => authorship.setBookTitle(e.target.value)}
                         placeholder={"Title"}
@@ -59,17 +69,24 @@ const CreateAuthorship = observer(({ show, onHide }) => {
                     <Form.Label className="mx-1 mt-2">Author Id</Form.Label>
                     <Form.Control
                         type="number"
+                        min={ 0 }
                         value={authorship.AuthorId}
                         onChange={async (e) => {
-                            authorship.setAuthorId(e.target.value)
-                            var data = await fetchAuthorItem(authorship.AuthorId);
+                            if (e.target.value !== '-' && e.target.value !== '') {
+                                e.target.value = e.target.value.replace('-', '');
+                                authorship.setAuthorId(e.target.value);
+                            }
+                            var data = await fetchAuthorItem(authorship.AuthorId).catch((error) => {
+                                authorship.setAuthorName('');
+                                return;
+                            });
                             authorship.setAuthorName(data.name);
                         }}
                         placeholder={"Enter author Id"}
                         disabled={!status}
 
                     />
-                    <Form.Label className="mx-1 mt-2">Author name</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: authorship.AuthorName === '' ? 'red' : 'black' }}>Author name</Form.Label>
                     <Form.Control
                         value={authorship.AuthorName}
                         onChange={e => authorship.setAuthorName(e.target.value)}
@@ -80,6 +97,9 @@ const CreateAuthorship = observer(({ show, onHide }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
+                    if (authorship.BookTitle === '' || authorship.AuthorName === '') {
+                        return;
+                    }
                     authorship.setOper(status ? 'c' : 'd');
                     crudBook();
                 }}>{status ? "Add" : "Delete"}</Button>

@@ -6,9 +6,9 @@ export default class AuthorshipStore {
     constructor() {
         this._dataServ = [];
         this._countPage = 0;
-        this._bookId = "";
+        this._bookId = 0;
         this._bookTitle = "";
-        this._authorId = "";
+        this._authorId = 0;
         this._authorName = "";
         this._new = true;
         this._oper = '';
