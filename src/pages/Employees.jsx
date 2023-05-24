@@ -90,7 +90,7 @@ const Employees = observer(() => {
                     })}
                 />
                 <CreateEmployees show={employeesVisible} onHide={() => setEmployeesVisible(false)} />
-                <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
+                <button type="button" class="btn btn-primary align-self-end m-3" onClick={() => {
                     setEmployeesVisible(true);
                     employees.setClean();
                 }}>Add new employees</button>

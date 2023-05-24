@@ -49,11 +49,11 @@ const Genre = observer(() => {
                         },
                     })}
                 />
-                {user.Role !== 'User' ? <CreateGenre show={genresVisible} onHide={() => setGenresVisible(false)} id={genres.Id} name={genres.Name} /> : null}
-                <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
+               <CreateGenre show={genresVisible} onHide={() => setGenresVisible(false)} id={genres.Id} name={genres.Name} />
+                {user.Role !== 'User' ?<button type="button" class="btn btn-primary align-self-end m-3" onClick={() => {
                     setGenresVisible(true);
                     genres.setClean();
-                }}>Add new genre</button>
+                }}>Add new genre</button> : null}
             </div>
         );
     }

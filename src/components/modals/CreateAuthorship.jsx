@@ -8,7 +8,7 @@ import { Context } from "../../index";
 
 
 const CreateAuthorship = observer(({ show, onHide }) => {
-    const { authorship } = useContext(Context);
+    const { authorship, user } = useContext(Context);
     var status = authorship.New;
     const crudBook = async () => {
         var oper = authorship.Oper;

@@ -7,7 +7,7 @@
   "type": "chrome",
   "request": "launch",
   "url": "http://localhost:3000",
-  "webRoot": "D:\\Danik\\Intertenament\\front\\front"
+  "webRoot": "D:\\Intertenament\\front\\front"
 }</LaunchJsonTarget>
   </PropertyGroup>
 </Project>

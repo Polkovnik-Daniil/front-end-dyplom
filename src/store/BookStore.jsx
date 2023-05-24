@@ -10,7 +10,7 @@ export default class BookStore {
         this._Id = "";
         this._title = "";
         this._realise = "";
-        this._quantity = "";
+        this._quantity = 0;
         this._genres = [];
         this._count = 0;
         this._oper = '';
@@ -36,7 +36,7 @@ export default class BookStore {
         this._Id = "";
         this._title = "";
         this._realise = "";
-        this._quantity = "";
+        this._quantity = 0;
         this._index = -1;
         this._count = 0;
         this._genres = [];

@@ -7,7 +7,7 @@ import { Context } from "../../index";
 
 
 const CreateGenre = observer(({ show, onHide }) => {
-    const { genres } = useContext(Context);
+    const { genres, user } = useContext(Context);
     var status = genres.Id === '';
 
     const crudBook = async () => {
@@ -21,6 +21,8 @@ const CreateGenre = observer(({ show, onHide }) => {
                 break;
             case 'd':
                 deleteGenre(Number(genres.Id));
+                break;
+            default:
                 break;
         }
         onHide();
@@ -56,17 +58,19 @@ const CreateGenre = observer(({ show, onHide }) => {
 
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                {!status ? <Button variant="outline-success" onClick={() => {
-                    genres.setOper('u');
-                    crudBook();
-                }}>Update</Button> : null}
-                <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
-                    genres.setOper(status ? 'c' : 'd');
-                    crudBook();
-                }}>{status ? "Add" : "Delete"}</Button>
-                <Button variant="outline-danger" onClick={onHide}>Close</Button>
-            </Modal.Footer>
+            {user.Role !== 'User' ?
+                <Modal.Footer>
+                    {!status ? <Button variant="outline-success" onClick={() => {
+                        genres.setOper('u');
+                        crudBook();
+                    }}>Update</Button> : null}
+                    <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
+                        genres.setOper(status ? 'c' : 'd');
+                        crudBook();
+                    }}>{status ? "Add" : "Delete"}</Button>
+                    <Button variant="outline-danger" onClick={onHide}>Close</Button>
+                </Modal.Footer> : null
+            }
         </Modal>
     );
 });

@@ -7,7 +7,7 @@ import { Context } from "../../index";
 
 
 const CreateAuthor = observer(({ show, onHide }) => {
-    const { author } = useContext(Context);
+    const { author, user } = useContext(Context);
     var status = author.Id === '';
 
     const crudBook = async () => {
@@ -56,17 +56,20 @@ const CreateAuthor = observer(({ show, onHide }) => {
 
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                {!status ? <Button variant="outline-success" onClick={() => {
-                    author.setOper('u');
-                    crudBook();
-                }}>Update</Button> : null}
-                <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
-                    author.setOper(status ? 'c' : 'd');
-                    crudBook();
-                }}>{status ? "Add" : "Delete"}</Button>
-                <Button variant="outline-danger" onClick={onHide}>Close</Button>
-            </Modal.Footer>
+            {
+                user.Role !== 'User' ?
+                <Modal.Footer>
+                    {!status ? <Button variant="outline-success" onClick={() => {
+                        author.setOper('u');
+                        crudBook();
+                    }}>Update</Button> : null}
+                    <Button variant={status ? "outline-success" : "outline-danger"} onClick={() => {
+                        author.setOper(status ? 'c' : 'd');
+                        crudBook();
+                    }}>{status ? "Add" : "Delete"}</Button>
+                    <Button variant="outline-danger" onClick={onHide}>Close</Button>
+                </Modal.Footer> : null
+            }
         </Modal>
     );
 });

@@ -13,17 +13,17 @@ import { observer } from "mobx-react-lite";
 const App = observer(() => {
     const { user } = useContext(Context);
     useEffect(() => {
-        check().then(data => {
-            user.setUser();
-        }).catch((reason: AxiosError) => {
-            console.log(reason.code === 'ERR_NETWORK');
-            if (reason.code === 'ERR_NETWORK' || reason.response.status >= 400) {
-
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-
-            }
-        })
+        if (user.isAuth) {
+            check().then(data => {
+                user.setUser();
+            }).catch((reason: AxiosError) => {
+                console.log(reason.code === 'ERR_NETWORK');
+                if (reason.code === 'ERR_NETWORK' || reason.response.status >= 400) {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                }
+            })
+        }
     }, [])
     return (
         <BrowserRouter>

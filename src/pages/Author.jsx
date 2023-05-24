@@ -50,12 +50,11 @@ const Author = observer(() => {
                         },
                     })}
                 />
-                { user.Role !== 'User' ? <CreateAuthor show={authorVisible} onHide={() => setAuthorVisible(false)} /> : null }
-
-                <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
+                <CreateAuthor show={authorVisible} onHide={() => setAuthorVisible(false)} /> 
+                {user.Role !== 'User' ? <button type="button" class="btn btn-primary align-self-end m-3" onClick={() => {
                     setAuthorVisible(true);
                     author.setClean();
-                }}>Add new author</button>
+                }}>Add new author</button> : null}
             </div>
         );
     }

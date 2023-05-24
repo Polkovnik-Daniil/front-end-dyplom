@@ -16,7 +16,7 @@ const Books = observer(() => {
     const [data, setData] = useState([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 0, //customize the default page size
+        pageSize: 100, //customize the default page size
     });
     const [bookVisible, setBookVisible] = useState(false);
 
@@ -58,11 +58,7 @@ const Books = observer(() => {
     if (values !== null) {
         return (
             <div className="d-flex flex-column">
-                <MaterialReactTable columns={columns} data={values}
-
-                    pageCount={pagination}
-                    onPaginationChange={setPagination}
-
+                <MaterialReactTable columns={columns} data={values}                 
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
                             books.setId(cell.row._valuesCache.id);
@@ -75,11 +71,12 @@ const Books = observer(() => {
                         },
                     })}
                 />
-                {user.Role !== 'User' && bookVisible ? <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} /> : null}
-                <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
+                { bookVisible ? <CreateBook show={bookVisible} onHide={() => setBookVisible(false)} /> : null}
+                {
+                    user.Role !== 'User' ? <button type="button" class="btn btn-primary align-self-end m-3" onClick={() => {
                     setBookVisible(true);
                     books.setClean();
-                }}>Add new book</button>
+                }}>Add new book</button>: null }
             </div>
         );
     }

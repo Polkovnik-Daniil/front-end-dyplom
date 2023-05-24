@@ -18,8 +18,9 @@ const AppRouter = observer(() => {
                 <Route key={path} path={path} element={element} />
             )}
             {/*was deleted row*/}
-            {user.isAuth ? <Route path="*" element={<Navigate replace to="/NotFound" />} /> : null}
-            {!user.isAuth ? <Route path="*" element={<Navigate replace to="/Login" />} /> : null}
+            { user.isAuth ? <Route path="/" element={ <Navigate replace to="/Home" /> } /> : null }
+            { user.isAuth ? <Route path="*" element={ <Navigate replace to="/NotFound" /> } /> : null }
+            { !user.isAuth ? <Route path="*" element={ <Navigate replace to="/Login" /> } /> : null }
 
         </Routes>
     );

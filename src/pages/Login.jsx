@@ -12,8 +12,12 @@ import { HOME_ROUTE } from "../utils/consts";
 
 const Login = observer(() => {
     const { user } = useContext(Context);
-    const [password, setPassword] = useState("");
+
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [status, setStatus] = useState(0);
+
     const navigate = useNavigate();
     if (user.isAuth) {
         navigate(HOME_ROUTE);
@@ -22,17 +26,23 @@ const Login = observer(() => {
     const handleSubmit = async (event) => {
         //проверка значений
         if (email === "" || password === "" || !IsEmail(email)) {
-            alert("Uncorrected values!");
+            setStatus(-1);
             return;
         }
+        setStatus(0);
+        var stat = true;
         await login(email, password).catch((error) => {
-            if (error.response.status == 403) {
-                alert("Your account is blocked!");
-            }
+            setStatus(error.response.status);
+            stat = false;
+        });
+        if (!stat) {
+            return;
         }
-        );
         user.setUser(true);
-        navigate(HOME_ROUTE);
+        if (status === 0) {
+            navigate(HOME_ROUTE);
+            return;
+        }
         return;
     }
     function IsEmail(value) {
@@ -42,6 +52,22 @@ const Login = observer(() => {
         }
         return false;
     }
+    let message = '';
+    switch (status) {
+        case -1:
+            message = "Fields is empty!";
+            break;
+        case 401:
+        case 400:
+            message = "Uncorrected username or password!";
+            break;
+        case 403:
+            message = "Your account is blocked!";
+            break;
+        default:
+            message = "Exception!";
+            break;
+    }
     return (
         <Container
             className="d-flex justify-content-center align-items-center"
@@ -50,17 +76,22 @@ const Login = observer(() => {
             <Card className="p-5">
                 <h2 className="m-auto">Authorization</h2>
                 <Form className="d-flex flex-column">
+                    <Form.Label className="fs-5 mt-3">Username</Form.Label>
                     <Form.Control
                         value={email}
                         onChange={e => setEmail(e.target.value)}
-                        className="mt-3"
-                        placeholder="Enter email..."/>
+                        className=""
+                        placeholder="Enter email..." />
+                    <Form.Label className="fs-5 mt-3">Password</Form.Label>
                     <Form.Control
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        className="mt-3"
+                        className=""
                         placeholder="Enter password"
-                        type="password"/>
+                        type="password" />
+                    {
+                        status !== 0 ? <Form.Label className="mt-3" style={{ color: 'red' }}>{message}</Form.Label> : null
+                    }
 
                     <Button className="mt-3" onClick={handleSubmit}>
                         Enter

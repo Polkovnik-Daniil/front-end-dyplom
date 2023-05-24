@@ -1,2 +1,4 @@
 D:\Danik\Intertenament\front\front\obj\Debug\front.esproj.SuggestedBindingRedirects.cache
 D:\Danik\Intertenament\front\front\obj\Debug\front.esproj.CoreCompileInputs.cache
+D:\Intertenament\front\front\obj\Debug\front.esproj.SuggestedBindingRedirects.cache
+D:\Intertenament\front\front\obj\Debug\front.esproj.CoreCompileInputs.cache

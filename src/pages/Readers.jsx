@@ -79,11 +79,11 @@ const Reader = observer(() => {
                         },
                     })}
                 />
-                { user.Role !== 'User' ? <CreateReader show={readersVisible} onHide={() => setReadersVisible(false)} /> : null }
-                <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
+                <CreateReader show={readersVisible} onHide={() => setReadersVisible(false)} />
+                { user.Role !== 'User' ? <button type="button" class="btn btn-primary align-self-end m-3" onClick={() => {
                     setReadersVisible(true);
                     readers.setClean();
-                }}>Add new reader</button>
+                }}>Add new reader</button> : null}
             </div>
         );
     }

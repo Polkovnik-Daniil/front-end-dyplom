@@ -90,7 +90,7 @@ const History = observer(() => {
                     })}
                 />
                 <CreateHistory show={historyVisible} onHide={() => setHistoryVisible(false)} />
-                <button type="button" class="btn btn-outline-primary align-self-end m-3" onClick={() => {
+                <button type="button" class="btn btn-primary align-self-end m-3" onClick={() => {
                     setHistoryVisible(true);
                     history.setClean();
                 }}>Add new history</button>
