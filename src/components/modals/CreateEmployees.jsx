@@ -22,10 +22,14 @@ const CreateEmployees = observer(({ show, onHide }) => {
         switch (oper) {
             case 'u':
                 var a = document.getElementById("checkbox");
-                updateEmployees(Number(employees.Id), employees.Name, employees.Email, employees.Password, employees.RoleId, employees.RefreshToken, employees.RefreshTokenExpiryTime, employees.IsLocked);
+                updateEmployees(Number(employees.Id), employees.Name, employees.Email, employees.Password, employees.RoleId, employees.RefreshToken, employees.RefreshTokenExpiryTime, employees.IsLocked)
                 break;
             case 'c':
-                createEmployees(employees.Name, employees.Email, employees.Password, employees.RoleId, employees.IsLocked);
+                createEmployees(employees.Name, employees.Email, employees.Password, employees.RoleId, employees.IsLocked).catch((error) => {
+                    if (error.response.status === 420) {
+                        alert("User with that values is already exist!")
+                    }
+                });;
                 break;
             case 'd':
                 deleteEmployees(Number(employees.Id));

@@ -43,7 +43,7 @@ import { makeAutoObservable } from "mobx";
         this._surname = '';
         this._patronymic = "";
         this._placeOfResidence = "";
-        this._phoneNumber = "";
+        this._phoneNumber = "0";
     }
 
     get Oper() {

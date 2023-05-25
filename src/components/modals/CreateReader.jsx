@@ -73,10 +73,18 @@ const CreateReader = observer(({ show, onHide }) => {
                         onChange={e => readers.setPlaceOfResidence(e.target.value)}
                         placeholder={"Enter place of residence"}
                     />
-                    <Form.Label className="mx-1 mt-2" style={{ color: readers.PhoneNumber === '' || !isCorrPhone  ? 'red' : 'black' }}>Phone number</Form.Label>
+                    <Form.Label className="mx-1 mt-2" style={{ color: readers.PhoneNumber === '' || !isCorrPhone || readers.PhoneNumber.length !== 11 ? 'red' : 'black' }}>Phone number</Form.Label>
                     <Form.Control
                         value={readers.PhoneNumber}
-                        onChange={e => readers.setPhoneNumber(e.target.value)}
+                        maxlength={ 15 }
+                        minlength={ 0 }
+                        onChange={e => {
+                            if (e.target.value !== '-' && e.target.value !== '') {
+                                e.target.value = e.target.value.replace('-', '');
+                                readers.setPhoneNumber(e.target.value);
+                            }
+                            setCorrPhone(true);
+                        }}
                         placeholder={"Enter phone number"}
                     />
                 </Form>
@@ -89,7 +97,7 @@ const CreateReader = observer(({ show, onHide }) => {
                                 return;
                             }
                             const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-                            if (!regEx.test(readers.PhoneNumber)) {
+                            if (readers.PhoneNumber.match(/\d/g).length >= 11 && readers.PhoneNumber.match(/\d/g).length <= 15) {
                                 setCorrPhone(false);
                                 return;
                             }
@@ -100,7 +108,7 @@ const CreateReader = observer(({ show, onHide }) => {
                         if (!readers.Name || !readers.Surname || !readers.Patronymic || !readers.PlaceOfResidence || !readers.PhoneNumber) {
                             return;
                         }
-                        if (readers.PhoneNumber.match(/\d/g).length!==11) {
+                        if (readers.PhoneNumber.match(/\d/g).length <= 11 && readers.PhoneNumber.match(/\d/g).length >= 15) {
                             setCorrPhone(false);
                             return;
                         }
