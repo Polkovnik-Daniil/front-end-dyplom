@@ -71,6 +71,9 @@ const Employees = observer(() => {
     if (values !== null) {
         return (
             <div className="d-flex flex-column">
+                <div class="text-center">
+                    <h1 class="display-1 fw-bold text-white">Employees</h1>
+                </div>
                 <MaterialReactTable columns={columns} data={values}
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {

@@ -62,6 +62,9 @@ const Reader = observer(() => {
     if (values !== null) {
         return (
             <div className="d-flex flex-column">
+                <div class="text-center">
+                    <h1 class="display-1 fw-bold text-white">Readers</h1>
+                </div>
                 <MaterialReactTable columns={columns} data={values}
                     pageCount={ pagination }
                     onPaginationChange={setPagination}

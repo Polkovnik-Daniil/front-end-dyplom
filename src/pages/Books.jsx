@@ -57,7 +57,11 @@ const Books = observer(() => {
     var values = books.Data;
     if (values !== null) {
         return (
+
             <div className="d-flex flex-column">
+                <div class="text-center">
+                    <h1 class="display-1 fw-bold text-white">Books</h1>
+                </div>
                 <MaterialReactTable columns={columns} data={values}
                     muiTableBodyCellProps={({ cell }) => ({
                         onClick: (event) => {
