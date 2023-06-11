@@ -68,11 +68,11 @@ const NavBar = observer(() => {
                                 </>
                                 : null
                         }
-                        <li class="nav-item">
-                            <a class="nav-link" onClick={() => { navigate(ABOUTUS_ROUTE); }}>
-                                About us
-                            </a>
-                        </li>                        
+                        {/*<li class="nav-item">*/}
+                        {/*    <a class="nav-link" onClick={() => { navigate(ABOUTUS_ROUTE); }}>*/}
+                        {/*        About us*/}
+                        {/*    </a>*/}
+                        {/*</li>                        */}
                         <li class="nav-item">
                             <a class="nav-link" onClick={OnExit}>
                                 Exit
